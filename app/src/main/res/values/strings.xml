@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SimpleAutomationApp</string>
+    <string name="action_list">Autos</string>
 </resources>
