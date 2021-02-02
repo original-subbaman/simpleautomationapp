@@ -14,12 +14,14 @@
         android:textColor="@color/white"
         android:background="@color/primary"/>
     <RadioGroup
+        android:id="@+id/alert_radio_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/select_android"
+            android:checked="true"
             android:textColor="@color/black"/>
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:layout_width="match_parent"

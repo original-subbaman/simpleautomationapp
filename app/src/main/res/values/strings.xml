@@ -7,4 +7,9 @@
     <string name="SelectType">Select Type</string>
     <string name="select_android">Android</string>
     <string name="select_iot">IOT</string>
+    <string name="select">Select</string>
+    <string-array name="selection_type">
+        <item name="select_iot">IOT</item>
+        <item name="select_android">Android</item>
+    </string-array>
 </resources>

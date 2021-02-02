@@ -6,10 +6,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 
+import android.app.Dialog;
+import android.app.LauncherActivity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.mact.simpleautomationapp.Fragments.AndroidAutoFragment;
@@ -21,6 +29,7 @@ import com.mact.simpleautomationapp.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding mBinding;
     private boolean isFABRotate = false;
+    public static final String TAG = "App";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +55,6 @@ public class MainActivity extends AppCompatActivity {
         mBinding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                isFABRotate = ViewAnimation.rotateFAB(v, !isFABRotate);
                 showSelectAutoTypeDialog();
             }
         });
@@ -55,11 +62,25 @@ public class MainActivity extends AppCompatActivity {
 
     private void showSelectAutoTypeDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        View view = getLayoutInflater().inflate(R.layout.alert_dialog_select_auto, null);
-        builder.setView(view)
-        .create()
-        .show();
+        builder.setTitle(R.string.SelectType)
+                .setSingleChoiceItems(R.array.selection_type, 0, null)
+                .setPositiveButton(R.string.select, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ListView listView = ((AlertDialog)dialog).getListView();
+                        String checkedItem = listView.getAdapter().getItem(listView.getCheckedItemPosition()).toString();
+                        if(checkedItem.equals("IOT")){
 
+                        }else{
+                            Intent intent = new Intent(getApplicationContext(), SelectTrigger.class);
+                            startActivity(intent);
+
+                        }
+
+                    }
+                })
+                .create()
+                .show();
     }
 
     private void setUpBottomAppBar() {
