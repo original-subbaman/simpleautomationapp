@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary"
     android:orientation="vertical"
-    tools:context=".Activities.SelectTrigger">
+    tools:context=".Activities.AutomateAndroid">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -18,10 +17,10 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
-    <ListView
-        android:id="@+id/triggers_list_view"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_container_view_tag"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:name="com.mact.simpleautomationapp.Fragments.TriggerAndroidFragment"/>
 
 </LinearLayout>

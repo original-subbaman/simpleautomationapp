@@ -31,12 +31,6 @@ public class AndroidAutoFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        ((MainActivity) getActivity()).setActionBarTitle("Android Autos");
-    }
-
-    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         androidAutoFragmentArrayList.add(new AndroidAuto("Title1", "Description1", "Action1"));

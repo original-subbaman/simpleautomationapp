@@ -8,8 +8,33 @@
     <string name="select_android">Android</string>
     <string name="select_iot">IOT</string>
     <string name="select">Select</string>
+    <string name="cancel">Cancel</string>
+
     <string-array name="selection_type">
         <item name="select_iot">IOT</item>
         <item name="select_android">Android</item>
     </string-array>
+
+    <string-array name="triggers">
+        <item name="Airplane Mode">Airplane Mode</item>
+        <item name="Battery Level">Battery Level</item>
+        <item name="WiFi State Changed">WiFi State Changed</item>
+        <item name="Data Connectivity">Data Connectivity</item>
+    </string-array>
+
+    <string-array name="airplane_mode_options">
+        <item name="Airplane Mode Enabled">Airplane Mode Enabled</item>
+        <item name="Airplane Mode Disabled">Airplane Mode Disabled</item>
+    </string-array>
+
+    <string-array name="battery_level">
+        <item name="Battery Below 20%">Battery Below 20%</item>
+        <item name="Battery Above 80%">Battery Above 80%</item>
+    </string-array>
+
+    <string-array name="WiFi_state_change">
+        <item name="WiFi Enabled">WiFi Enabled</item>
+        <item name="WiFi Disabled">WiFi Disabled</item>
+    </string-array>
+
 </resources>

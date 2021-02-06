@@ -4,26 +4,19 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentManager;
 
-import android.app.Dialog;
-import android.app.LauncherActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.mact.simpleautomationapp.Fragments.AndroidAutoFragment;
 import com.mact.simpleautomationapp.Fragments.IOTAutoFragment;
 import com.mact.simpleautomationapp.R;
-import com.mact.simpleautomationapp.Utils.ViewAnimation;
 import com.mact.simpleautomationapp.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -72,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                         if(checkedItem.equals("IOT")){
 
                         }else{
-                            Intent intent = new Intent(getApplicationContext(), SelectTrigger.class);
+                            Intent intent = new Intent(getApplicationContext(), AutomateAndroid.class);
                             startActivity(intent);
 
                         }

@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SimpleAutomationApp">
-        <activity android:name=".Activities.SelectTrigger"></activity>
+        <activity android:name=".Activities.AutomateAndroid"></activity>
         <activity android:name=".Activities.ListAndroidAutoActivity" />
         <activity android:name=".Activities.MainActivity">
             <intent-filter>

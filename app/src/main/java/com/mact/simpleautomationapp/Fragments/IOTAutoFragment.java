@@ -35,7 +35,6 @@ public class IOTAutoFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((MainActivity) getActivity()).setActionBarTitle("Android Autos");
     }
 
 
