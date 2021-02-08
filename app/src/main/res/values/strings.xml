@@ -22,6 +22,18 @@
         <item name="Data Connectivity">Data Connectivity</item>
     </string-array>
 
+    <string-array name="actions">
+        <item name="Launch Application">Launch Application</item>
+        <item name="Hotspot">Hotspot</item>
+        <item name="Mobile Data">Mobile Data</item>
+        <item name="USB Tethering">USB Tethering</item>
+    </string-array>
+
+   <string-array name="enable_disable">
+       <item name="Enabled">Enabled</item>
+       <item name="Disabled">Disabled</item>
+   </string-array>
+
     <string-array name="airplane_mode_options">
         <item name="Airplane Mode Enabled">Airplane Mode Enabled</item>
         <item name="Airplane Mode Disabled">Airplane Mode Disabled</item>

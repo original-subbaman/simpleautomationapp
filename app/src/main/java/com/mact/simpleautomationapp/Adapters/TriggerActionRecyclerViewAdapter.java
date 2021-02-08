@@ -3,23 +3,20 @@ package com.mact.simpleautomationapp.Adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mact.simpleautomationapp.Models.AndroidAuto;
-import com.mact.simpleautomationapp.Models.ListItem;
 import com.mact.simpleautomationapp.R;
 
 import java.util.ArrayList;
 
-public class TriggerRecyclerViewAdapter extends RecyclerView.Adapter<TriggerRecyclerViewAdapter.TriggerItemViewHolder> {
+public class TriggerActionRecyclerViewAdapter extends RecyclerView.Adapter<TriggerActionRecyclerViewAdapter.TriggerItemViewHolder> {
 
     private ArrayList<String> mTriggerList;
     private OnItemClickListener listener;
-    public TriggerRecyclerViewAdapter(ArrayList<String> list) {
+    public TriggerActionRecyclerViewAdapter(ArrayList<String> list) {
         this.mTriggerList = list;
     }
 
@@ -66,6 +63,11 @@ public class TriggerRecyclerViewAdapter extends RecyclerView.Adapter<TriggerRecy
                 }
             });
         }
+    }
+
+    public void updateList(ArrayList<String> data){
+        this.mTriggerList = data;
+        notifyDataSetChanged();
     }
 }
 

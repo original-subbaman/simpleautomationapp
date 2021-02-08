@@ -21,6 +21,6 @@
         android:id="@+id/fragment_container_view_tag"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.mact.simpleautomationapp.Fragments.TriggerAndroidFragment"/>
+        android:name="com.mact.simpleautomationapp.Fragments.CreateTaskFragment"/>
 
 </LinearLayout>
