@@ -3,7 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10px"
+    android:elevation="4dp"
+    android:clipToPadding="false"
+    android:background="@drawable/bg_rounded_corner_top">
 
 
     <androidx.recyclerview.widget.RecyclerView

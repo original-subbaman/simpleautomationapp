@@ -6,19 +6,36 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mact.simpleautomationapp.Models.AndroidAuto;
+import com.mact.simpleautomationapp.Room.Entity.AndroidAuto;
 import com.mact.simpleautomationapp.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class AutosRecyclerViewAdapter extends RecyclerView.Adapter<AutosRecyclerViewAdapter.AndroidAutoItemViewHolder> {
+public class AutosRecyclerViewAdapter extends ListAdapter<AndroidAuto, AutosRecyclerViewAdapter.AndroidAutoItemViewHolder> {
 
-    private ArrayList<AndroidAuto> mAutoList;
-    public AutosRecyclerViewAdapter(ArrayList<AndroidAuto> list) {
-        this.mAutoList = list;
+
+    protected AutosRecyclerViewAdapter() {
+        super(DIFF_CALLBACK);
     }
+    
+    private static final DiffUtil.ItemCallback<AndroidAuto> DIFF_CALLBACK = new DiffUtil.ItemCallback<AndroidAuto>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull AndroidAuto oldItem, @NonNull AndroidAuto newItem) {
+            return oldItem.getId() == newItem.getId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull AndroidAuto oldItem, @NonNull AndroidAuto newItem) {
+            return oldItem.getTitle().equals(newItem.getTitle()) &&
+                    oldItem.getTrigger().getTriggerDescription().equals(newItem.getTrigger().getTriggerDescription()) &&
+                    oldItem.getAction().getActionDescription().equals(newItem.getAction().getActionDescription());
+        }
+    };
 
     @NonNull
     @Override
@@ -29,14 +46,10 @@ public class AutosRecyclerViewAdapter extends RecyclerView.Adapter<AutosRecycler
 
     @Override
     public void onBindViewHolder(@NonNull AndroidAutoItemViewHolder holder, int position) {
-        holder.mTitleText.setText(mAutoList.get(position).getTitle());
-        holder.mActionText.setText(mAutoList.get(position).getActionDescription());
-        holder.mTriggerText.setText(mAutoList.get(position).getTriggerDescription());
-    }
-
-    @Override
-    public int getItemCount() {
-        return mAutoList.size();
+        AndroidAuto androidAuto = getItem(position);
+        holder.mTitleText.setText(androidAuto.getTitle());
+        holder.mActionText.setText(androidAuto.getAction().getActionDescription());
+        holder.mTriggerText.setText(androidAuto.getTrigger().getTriggerDescription());
     }
 
     public static class AndroidAutoItemViewHolder extends RecyclerView.ViewHolder {

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_bar_android"
+            android:icon="@drawable/ic_baseline_android_24"
+            android:title="@string/select_android"
+            app:showAsAction="ifRoom" />
+        <item
+            android:id="@+id/nav_bar_iot"
+            android:icon="@drawable/ic_baseline_wb_incandescent_24"
+            android:title="@string/select_iot"
+            app:showAsAction="ifRoom" />
+    </group>
+
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="@string/settings"
+        app:showAsAction="ifRoom" />
+</menu>

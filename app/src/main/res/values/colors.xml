@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#383838</color>
+    <color name="primary">#03A9F4</color>
+    <color name="primaryVariant">#0288d1</color>
+    <color name="lightBlue">#03a9f4</color>
+    <color name="orange">#ff5722</color>
+    <color name="green">#00C853</color>
+    <color name="red">#FF5555</color>
+    <color name="pink">#EE4266</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="dark_grey">#212121</color>
     <color name="grey_400">#BDBDBD</color>

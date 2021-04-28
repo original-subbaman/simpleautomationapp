@@ -2,7 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10px"
+    android:clipToPadding="false"
+    android:elevation="4dp"
+    android:background="@drawable/bg_rounded_corner_top">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/android_iot_recycler_view"
         android:layout_width="match_parent"

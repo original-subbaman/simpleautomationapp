@@ -9,6 +9,23 @@
     <string name="select_iot">IOT</string>
     <string name="select">Select</string>
     <string name="cancel">Cancel</string>
+    <string name="loading">Loading...</string>
+    <string name="title">Add Title</string>
+    <string name="review">Review</string>
+    <string name="trigger">Trigger</string>
+    <string name="action">Action</string>
+    <string name="create">Create</string>
+    <string name="no_title">Please provide a title</string>
+    <string name="settings">Settings</string>
+
+    <string name="subtitle_android">All Android Tasks</string>
+    <string name="subtitle_iot">All Iot Tasks</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="trigger_explain">"Triggers are conditions that must be full filled before an Action can be executed."</string>
+    <string name="action_explain">"Action is the task that will be executed when a Trigger condition is met."</string>
+    <string name="review_task">Please review your task and provide a title to identify it</string>
 
     <string-array name="selection_type">
         <item name="select_iot">IOT</item>
@@ -18,15 +35,16 @@
     <string-array name="triggers">
         <item name="Airplane Mode">Airplane Mode</item>
         <item name="Battery Level">Battery Level</item>
-        <item name="WiFi State Changed">WiFi State Changed</item>
-        <item name="Data Connectivity">Data Connectivity</item>
+        <item name="Bluetooth State">Bluetooth State</item>
+        <item name="Time">Time</item>
+        <item name="Headset Plugged">Headset Plugged</item>
+        <item name="WiFi State">WiFi State</item>
     </string-array>
 
     <string-array name="actions">
         <item name="Launch Application">Launch Application</item>
-        <item name="Hotspot">Hotspot</item>
-        <item name="Mobile Data">Mobile Data</item>
-        <item name="USB Tethering">USB Tethering</item>
+        <item name="Bluetooth State">Bluetooth State</item>
+        <item name="WiFi State Change">WiFi State</item>
     </string-array>
 
    <string-array name="enable_disable">

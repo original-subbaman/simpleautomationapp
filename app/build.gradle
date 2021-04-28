@@ -36,8 +36,21 @@ android {
 
 dependencies {
     def fragment_version = "1.2.5"
+    def room_version = "2.3.0"
+    def lifecycle_version = "2.3.1"
 
-    // Java language implementation
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+
+    // ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+    // LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
+    // Annotation processor
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+
+
+    compile 'com.getbase:floatingactionbutton:1.10.1'
     implementation "androidx.fragment:fragment:$fragment_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.google.android.material:material:1.1.0'

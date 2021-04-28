@@ -2,7 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/action_trigger_description"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="@color/orange"
+        android:text="@string/trigger_explain"
+        android:textColor="@color/white"
+        android:textAlignment="gravity"
+        android:textSize="18sp"
+        android:gravity="center_vertical|center_horizontal"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_tag"

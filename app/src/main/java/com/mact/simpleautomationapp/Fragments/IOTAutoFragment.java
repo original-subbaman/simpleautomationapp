@@ -11,9 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mact.simpleautomationapp.Activities.MainActivity;
 import com.mact.simpleautomationapp.Adapters.AutosRecyclerViewAdapter;
-import com.mact.simpleautomationapp.Models.AndroidAuto;
+import com.mact.simpleautomationapp.Room.Entity.AndroidAuto;
 import com.mact.simpleautomationapp.R;
 
 import java.util.ArrayList;
@@ -41,9 +40,6 @@ public class IOTAutoFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        androidAutoFragmentArrayList.add(new AndroidAuto("Title2", "Description1", "Action1"));
-        androidAutoFragmentArrayList.add(new AndroidAuto("Title3", "Description2", "Action2"));
-        androidAutoFragmentArrayList.add(new AndroidAuto("Title4", "Description3", "Action3"));
         mAdapter = new AutosRecyclerViewAdapter(androidAutoFragmentArrayList);
         mLayoutManager = new LinearLayoutManager(getContext());
 
@@ -52,7 +48,6 @@ public class IOTAutoFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        getActivity().setTitle("IOT Autos");
         View view = inflater.inflate(R.layout.fragment_iot_auto, container, false);
         mRecyclerView = view.findViewById(R.id.android_iot_recycler_view);
         return view;

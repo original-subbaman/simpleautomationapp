@@ -59,7 +59,5 @@ public class CustomDialog extends DialogFragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-
-
     }
 }
