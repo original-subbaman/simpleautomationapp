@@ -24,4 +24,7 @@ public interface AndroidAutoDAO {
 
     @Query("SELECT * FROM android_auto_table")
     LiveData<List<AndroidAuto>> getAllAndroidTasks();
+
+    @Query("SELECT * FROM android_auto_table")
+    List<AndroidAuto> getAllAndroidTasksAsList();
 }

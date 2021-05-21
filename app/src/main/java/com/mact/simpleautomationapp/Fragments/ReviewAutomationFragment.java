@@ -1,5 +1,6 @@
 package com.mact.simpleautomationapp.Fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,18 +11,31 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.mact.simpleautomationapp.Activities.AutomateAndroid;
+import com.mact.simpleautomationapp.Activities.MainActivity;
 import com.mact.simpleautomationapp.R;
+import com.mact.simpleautomationapp.Room.ViewModel.AutomatedTaskViewModel;
 import com.mact.simpleautomationapp.Services.BroadcastManager;
 
 public class ReviewAutomationFragment extends Fragment implements View.OnClickListener {
     private Button createAutoButton;
     private TextView titleTxtView;
-
+    private AutomateAndroid automateAndroid;
+    private AutomatedTaskViewModel viewModel;
     public ReviewAutomationFragment(){
         super(R.layout.fragment_review_automation);
-
     }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        automateAndroid = (AutomateAndroid) getActivity();
+        viewModel = new ViewModelProvider(getActivity(),
+                ViewModelProvider.AndroidViewModelFactory.getInstance(automateAndroid.getApplication())).get(AutomatedTaskViewModel.class);
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,7 +63,7 @@ public class ReviewAutomationFragment extends Fragment implements View.OnClickLi
                 Toast.makeText(getActivity(), R.string.no_title, Toast.LENGTH_LONG).show();
             } else {
                 ((AutomateAndroid) getActivity()).getAuto().setTitle(title);
-                BroadcastManager.addAuto(((AutomateAndroid) getActivity()).getAuto());
+                viewModel.insert(automateAndroid.getAuto());
                 getActivity().finish();
             }
         }

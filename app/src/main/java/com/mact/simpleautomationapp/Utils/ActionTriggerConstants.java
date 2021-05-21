@@ -18,4 +18,14 @@ public class ActionTriggerConstants {
     public static final String LAUNCH_APPLICATION = "Launch Application";
     public static final String HEADSET_PLUGGED = "Headset Plugged";
     public static final String ALARM_RAISED = "Alarm Raised";
+    public static final String TURN_FLASH_ON = "Flashlight On";
+    public static final String SEND_EMAIL = "Send Email";
+    public static final String SMS_RECEIVED = "SMS Received";
+    public static final String DATE = "Date";
+    public static final String TEXT_TO_SPEECH = "Text to Speech";
+
+
+
+
+
 }

@@ -8,6 +8,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mact.simpleautomationapp.Activities.AutomateAndroid;
+import com.mact.simpleautomationapp.Activities.SendEmailActivity;
 import com.mact.simpleautomationapp.Adapters.TriggerActionRecyclerViewAdapter;
 import com.mact.simpleautomationapp.Room.Entity.Action;
 import com.mact.simpleautomationapp.R;
@@ -33,7 +35,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public class SelectActionFragment extends Fragment implements CustomDialogContract {
+public class    SelectActionFragment extends Fragment implements CustomDialogContract {
 
     private ArrayList<String> items;
     private List<String> installedApps;
@@ -45,7 +47,10 @@ public class SelectActionFragment extends Fragment implements CustomDialogContra
     private AutomateAndroid automateAndroid;
     private Handler handler;
     private static final int ACTION_ID = R.array.actions;
-    private static final int SELECTION_LAUNCH_APPLICATION = -1;
+    private static final int SELECTION_LAUNCH_APPLICATION = 0;
+    private static final int SELECTION_TURN_ON_FLASH = 1;
+    private static final int SELECTION_SEND_EMAIL = 2;
+
 
     public SelectActionFragment(){
         super(R.layout.fragment_trigger_android);
@@ -62,13 +67,26 @@ public class SelectActionFragment extends Fragment implements CustomDialogContra
         adapter = new TriggerActionRecyclerViewAdapter(items);
         adapter.setOnItemClickListener(position -> {
             int arrayResId = automateAndroid.getOptionsForSelection(items.get(position));
-            if(arrayResId == SELECTION_LAUNCH_APPLICATION){
-                packageManager = getActivity().getPackageManager();
-                runGetAppsThread();
-                runShowAppListThread();
-            }
-            else{
-                automateAndroid.createEnableDisableDialog(arrayResId, items.get(position), 1, items.get(position));
+            switch(arrayResId){
+                case SELECTION_LAUNCH_APPLICATION:
+                    packageManager = getActivity().getPackageManager();
+                    runGetAppsThread();
+                    runShowAppListThread();
+                    break;
+                case SELECTION_TURN_ON_FLASH:
+                    automateAndroid.getAuto().setAction(automateAndroid.createAction(
+                            ActionTriggerConstants.TURN_FLASH_ON,
+                            null,
+                            "Turn Flashlight On"));
+                    automateAndroid.switchFragment(AutomateAndroid.REVIEW_FRAGMENT);
+                    break;
+                case SELECTION_SEND_EMAIL:
+                    Intent intent = new Intent(getActivity(), SendEmailActivity.class);
+                    ((AutomateAndroid) getActivity()).startActivityForResult(intent, AutomateAndroid.ACTIVITY_EMAIL_CODE);
+                    break;
+                default:
+                    automateAndroid.createEnableDisableDialog(arrayResId, items.get(position), 1, items.get(position));
+
             }
         });
         linearLayoutManager = new LinearLayoutManager(getContext());

@@ -40,7 +40,7 @@ public class IOTAutoFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new AutosRecyclerViewAdapter(androidAutoFragmentArrayList);
+        mAdapter = new AutosRecyclerViewAdapter();
         mLayoutManager = new LinearLayoutManager(getContext());
 
     }

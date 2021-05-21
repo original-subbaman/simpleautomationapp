@@ -17,6 +17,7 @@ public class AndroidAutoRepository {
     public static final int INSERT = 0;
     public static final int DELETE = 1;
     public static final int UPDATE = 2;
+    public static final int GET = 3;
 
 
     private AndroidAutoDAO dao;
@@ -25,7 +26,7 @@ public class AndroidAutoRepository {
     public AndroidAutoRepository(Application application) {
         AutomatedTaskDatabase db = AutomatedTaskDatabase.getInstance(application);
         dao = db.autoDAO();
-        allAndroidAutos = dao.getAllAndroidAutos();
+        allAndroidAutos = dao.getAllAndroidTasks();
     }
 
     public void insert(AndroidAuto automateAndroid){
@@ -47,6 +48,7 @@ public class AndroidAutoRepository {
         return allAndroidAutos;
     }
 
+
     private static class RoomTask implements Runnable{
         private AndroidAutoDAO dao;
         private int operation;
@@ -54,6 +56,7 @@ public class AndroidAutoRepository {
         private RoomTask(AndroidAutoDAO dao, int op, AndroidAuto auto){
             this.operation = op;
             this.auto = auto;
+            this.dao = dao;
         }
 
         @Override

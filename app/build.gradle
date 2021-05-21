@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -35,6 +36,10 @@ android {
 }
 
 dependencies {
+    implementation files('libs\\activation.jar')
+    implementation files('libs\\additionnal.jar')
+    implementation files('libs\\mail.jar')
+    implementation 'com.google.firebase:firebase-database:19.2.1'
     def fragment_version = "1.2.5"
     def room_version = "2.3.0"
     def lifecycle_version = "2.3.1"
@@ -49,8 +54,12 @@ dependencies {
     // Annotation processor
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
 
+    //GSON
+    implementation 'com.google.code.gson:gson:2.8.6'
 
-    compile 'com.getbase:floatingactionbutton:1.10.1'
+    implementation files('libs/activation.jar')
+    implementation files('libs/additionnal.jar')
+    implementation files('libs/mail.jar')
     implementation "androidx.fragment:fragment:$fragment_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.google.android.material:material:1.1.0'

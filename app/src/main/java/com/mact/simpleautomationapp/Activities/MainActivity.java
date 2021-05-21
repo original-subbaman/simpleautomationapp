@@ -2,6 +2,7 @@ package com.mact.simpleautomationapp.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +15,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
@@ -28,8 +30,10 @@ import com.mact.simpleautomationapp.R;
 import com.mact.simpleautomationapp.Room.Entity.AndroidAuto;
 import com.mact.simpleautomationapp.Room.ViewModel.AutomatedTaskViewModel;
 import com.mact.simpleautomationapp.Services.BroadcastManager;
+import com.mact.simpleautomationapp.Services.BroadcastReceiverService;
 import com.mact.simpleautomationapp.databinding.ActivityMainBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -37,8 +41,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static BroadcastManager mBroadcastManager;
     private boolean isMenuOpen = false;
     private OvershootInterpolator interpolator = new OvershootInterpolator();
-    private AutomatedTaskViewModel viewModel;
-
+    private List<AndroidAuto> tasks;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,14 +49,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         View view = mBinding.getRoot();
         setContentView(view);
         Toolbar toolbar = mBinding.toolbar;
+
+        tasks = new ArrayList<>();
+
         setSupportActionBar(toolbar);
 
         setUpUIComponents(savedInstanceState);
 
-        mBroadcastManager = new BroadcastManager(this);
-        viewModel = new ViewModelProvider(this,
-                ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication())).get(AutomatedTaskViewModel.class);
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        App.setContext(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        App.setContext(null);
     }
 
     @Override
@@ -65,6 +79,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    public void startBroadcastReceiverService(ArrayList<AndroidAuto> tasks){
+        ArrayList<AndroidAuto> allAndroidAutos = new ArrayList<>(tasks);
+        Intent service = new Intent(this, BroadcastReceiverService.class);
+        service.putParcelableArrayListExtra("androidAutos", allAndroidAutos);
+        ContextCompat.startForegroundService(this, service);
+    }
+
+    private void setTasks(List<AndroidAuto> tasks){
+        this.tasks = tasks;
+    }
 
     private void setUpUIComponents(Bundle savedInstanceState) {
         setUpSideNavigationDrawer();
@@ -101,7 +125,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         mBinding.createIotAutoFab.setOnClickListener(v -> {
-
+            Intent intent = new Intent(getApplicationContext(), SelectIoT.class);
+            startActivity(intent);
         });
 
         mBinding.fab.setOnClickListener(v -> {
@@ -175,35 +200,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         mBinding.drawerLayout.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.app_bar_menu, menu);
-        MenuItem item = menu.findItem(R.id.app_bar_search);
-        androidx.appcompat.widget.SearchView searchView = (SearchView) item.getActionView();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.app_bar_search:
-                Toast.makeText(MainActivity.this, "Autos Setting clicked", Toast.LENGTH_SHORT).show();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

@@ -1,50 +1,56 @@
 package com.mact.simpleautomationapp.Services;
 
+import android.app.Application;
 import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.net.wifi.WifiManager;
+import android.os.Build;
+import android.provider.Telephony;
+import android.telephony.SmsMessage;
 import android.util.Log;
 
+import androidx.annotation.RequiresApi;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.mact.simpleautomationapp.Room.Entity.Action;
 import com.mact.simpleautomationapp.Room.Entity.AndroidAuto;
+import com.mact.simpleautomationapp.Room.Entity.Trigger;
+import com.mact.simpleautomationapp.Room.ViewModel.AutomatedTaskViewModel;
 import com.mact.simpleautomationapp.Utils.RunAutomateTask;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BroadcastManager extends BroadcastReceiver {
-    private static List<AndroidAuto> androidAutoList = new ArrayList<>();
+    private static List<AndroidAuto> androidAutoList;
     private static RunAutomateTask automateTask;
     public static final String TAG = "BroadcastManager";
     private Context context;
 
-    public BroadcastManager(){}
-
-    public BroadcastManager(Context  context){
+    public BroadcastManager(Context  context, ArrayList<AndroidAuto> tasks){
         this.context = context;
         automateTask = new RunAutomateTask(context);
+        androidAutoList = new ArrayList<>(tasks);
     }
 
-    public static void addAuto(AndroidAuto auto){
-        androidAutoList.add(auto);
+
+    public BroadcastManager() {
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onReceive(Context context, Intent intent) {
-        String action = intent.getAction();
-        AndroidAuto androidAuto = getAndroidAuto(action);
+        String trigger = intent.getAction();
+        Log.d(TAG, "onReceive: action " + trigger);
+        AndroidAuto androidAuto = getAndroidAuto(trigger);
         if(androidAuto == null) return;
-        switch(action){
+        switch(trigger){
             case BluetoothAdapter.ACTION_STATE_CHANGED:
-                /*if(intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, -1) == BluetoothAdapter.STATE_ON){
-                    for(AndroidAuto auto : androidAutoList){
-                        if(auto.getTriggerDescription().contains("Bluetooth")){
-                            Intent launchIntent = auto.getLaunchIntent();
-                            context.startActivity(launchIntent);
-                        }
-                    }
-                }*/
                 BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
                 //if the state of the bluetooth is equal to the state of the trigger
                 if(adapter.getState() == androidAuto.getTrigger().getStateOfAction()){
@@ -57,6 +63,24 @@ public class BroadcastManager extends BroadcastReceiver {
                      automateTask.run(androidAuto.getAction());
                  }
                 break;
+            case Telephony.Sms.Intents.SMS_RECEIVED_ACTION:
+                SmsMessage[] rawSmsMsg;
+                rawSmsMsg = Telephony.Sms.Intents.getMessagesFromIntent(intent);
+                for(SmsMessage message : rawSmsMsg){
+                    if(message != null){
+                        String sender = message.getDisplayOriginatingAddress();
+                        Log.d(TAG, "onReceive: " + sender);
+                        Trigger autoTrigger = androidAuto.getTrigger();
+                        if(sender.toLowerCase().equals(autoTrigger.getSmsSenderName().toLowerCase())){
+                            Action action = androidAuto.getAction();
+                            action.setMessage(message.getDisplayMessageBody());
+                            automateTask.run(action);
+                        }
+                    }
+                }
+
+                //getSMSText();
+                break;
             default:
                 automateTask.run(androidAuto.getAction());
         }
@@ -67,18 +91,19 @@ public class BroadcastManager extends BroadcastReceiver {
      */
     private AndroidAuto getAndroidAuto(String action){
         for(AndroidAuto auto : androidAutoList){
-            Log.d(TAG, "getAndroidAuto: " + auto.getTrigger().getActionThatTriggers());
             if(auto.getTrigger().getActionThatTriggers().equals(action)){
-                Log.d(TAG, "getAndroidAuto: found");
                 return auto;
             }
         }
         return null;
     }
 
-
-
-
-
-
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private String getSMSText(){
+        Cursor cursor = context.getContentResolver().query(Uri.parse("content://sms/inbox"), null, null, null, null);
+        if(cursor.moveToFirst()){
+            Log.d(TAG, "getSMSText: " + cursor.getString(2));
+        }
+        return null;
+    }
 }
